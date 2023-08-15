@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.Host", "Hrnetgroup.Wms.Host\Hrnetgroup.Wms.Host.csproj", "{437AB4AF-27E4-4A98-ADFB-BF75C298973B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.Application", "Hrnetgroup.Wms.Application\Hrnetgroup.Wms.Application.csproj", "{C1D2A816-CC70-4827-B148-BDEDE75D5661}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{744178D0-B6C1-4F02-AB37-5EE42CDF9C32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.EntityframeworkCore", "Hrnetgroup.Wms.EntityframeworkCore\Hrnetgroup.Wms.EntityframeworkCore.csproj", "{34EFE56A-0E46-4721-9077-9BB7084164B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.Domain", "Hrnetgroup.Wms.Domain\Hrnetgroup.Wms.Domain.csproj", "{5B439056-9B0A-462B-AB38-EC67B7BBE396}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.Application.Contracts", "Hrnetgroup.Wms.Application.Contracts\Hrnetgroup.Wms.Application.Contracts.csproj", "{B4FA6408-141C-44A1-8671-D36886D5F75D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.DbMigrator", "Hrnetgroup.Wms.DbMigrator\Hrnetgroup.Wms.DbMigrator.csproj", "{144B5D13-9612-4786-941A-22AA751D8C56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{437AB4AF-27E4-4A98-ADFB-BF75C298973B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{437AB4AF-27E4-4A98-ADFB-BF75C298973B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{437AB4AF-27E4-4A98-ADFB-BF75C298973B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{437AB4AF-27E4-4A98-ADFB-BF75C298973B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D2A816-CC70-4827-B148-BDEDE75D5661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D2A816-CC70-4827-B148-BDEDE75D5661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D2A816-CC70-4827-B148-BDEDE75D5661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D2A816-CC70-4827-B148-BDEDE75D5661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34EFE56A-0E46-4721-9077-9BB7084164B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EFE56A-0E46-4721-9077-9BB7084164B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EFE56A-0E46-4721-9077-9BB7084164B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EFE56A-0E46-4721-9077-9BB7084164B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B439056-9B0A-462B-AB38-EC67B7BBE396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B439056-9B0A-462B-AB38-EC67B7BBE396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B439056-9B0A-462B-AB38-EC67B7BBE396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B439056-9B0A-462B-AB38-EC67B7BBE396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4FA6408-141C-44A1-8671-D36886D5F75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4FA6408-141C-44A1-8671-D36886D5F75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4FA6408-141C-44A1-8671-D36886D5F75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4FA6408-141C-44A1-8671-D36886D5F75D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{144B5D13-9612-4786-941A-22AA751D8C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144B5D13-9612-4786-941A-22AA751D8C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144B5D13-9612-4786-941A-22AA751D8C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144B5D13-9612-4786-941A-22AA751D8C56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1D2A816-CC70-4827-B148-BDEDE75D5661} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
+		{437AB4AF-27E4-4A98-ADFB-BF75C298973B} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
+		{34EFE56A-0E46-4721-9077-9BB7084164B7} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
+		{5B439056-9B0A-462B-AB38-EC67B7BBE396} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
+		{B4FA6408-141C-44A1-8671-D36886D5F75D} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
+		{144B5D13-9612-4786-941A-22AA751D8C56} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
+	EndGlobalSection
+EndGlobal
