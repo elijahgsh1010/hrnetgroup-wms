@@ -19,6 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Hrnetgroup.Wms.Application\Hrnetgroup.Wms.Application.csproj" />
+      <ProjectReference Include="..\Hrnetgroup.Wms.Domain\Hrnetgroup.Wms.Domain.csproj" />
       <ProjectReference Include="..\Hrnetgroup.Wms.EntityframeworkCore\Hrnetgroup.Wms.EntityframeworkCore.csproj" />
     </ItemGroup>
 

@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="7.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
         <PrivateAssets>all</PrivateAssets>
@@ -20,6 +21,11 @@
       <Reference Include="Microsoft.Extensions.Configuration">
         <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.0\Microsoft.Extensions.Configuration.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Hrnetgroup.Wms.Application.Contracts\Hrnetgroup.Wms.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Hrnetgroup.Wms.Domain\Hrnetgroup.Wms.Domain.csproj" />
     </ItemGroup>
 
 </Project>

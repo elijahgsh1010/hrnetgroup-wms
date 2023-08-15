@@ -6,4 +6,13 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Hrnetgroup.Wms.Application.Contracts\Hrnetgroup.Wms.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Hrnetgroup.Wms.Domain\Hrnetgroup.Wms.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="11.0.0" />
+    </ItemGroup>
+
 </Project>

@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.Application.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.DbMigrator", "Hrnetgroup.Wms.DbMigrator\Hrnetgroup.Wms.DbMigrator.csproj", "{144B5D13-9612-4786-941A-22AA751D8C56}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5D4C1390-8D05-4743-B8A5-127E46E2A7EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hrnetgroup.Wms.Application.Tests", "Hrnetgroup.Wms.Application.Tests\Hrnetgroup.Wms.Application.Tests.csproj", "{1133EC9D-4AB9-4D37-AB9B-5A4C3F1F95F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,10 @@ Global
 		{144B5D13-9612-4786-941A-22AA751D8C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{144B5D13-9612-4786-941A-22AA751D8C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{144B5D13-9612-4786-941A-22AA751D8C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1133EC9D-4AB9-4D37-AB9B-5A4C3F1F95F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1133EC9D-4AB9-4D37-AB9B-5A4C3F1F95F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1133EC9D-4AB9-4D37-AB9B-5A4C3F1F95F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1133EC9D-4AB9-4D37-AB9B-5A4C3F1F95F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C1D2A816-CC70-4827-B148-BDEDE75D5661} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
@@ -52,5 +60,6 @@ Global
 		{5B439056-9B0A-462B-AB38-EC67B7BBE396} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
 		{B4FA6408-141C-44A1-8671-D36886D5F75D} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
 		{144B5D13-9612-4786-941A-22AA751D8C56} = {744178D0-B6C1-4F02-AB37-5EE42CDF9C32}
+		{1133EC9D-4AB9-4D37-AB9B-5A4C3F1F95F6} = {5D4C1390-8D05-4743-B8A5-127E46E2A7EC}
 	EndGlobalSection
 EndGlobal
