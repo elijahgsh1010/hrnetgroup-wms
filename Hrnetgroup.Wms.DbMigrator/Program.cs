@@ -24,7 +24,6 @@ class Program
         using IHost host = Host.CreateDefaultBuilder(args)
             .ConfigureServices(services =>
             {
-                services.AddSingleton<Test>();
                 services.AddSingleton<WmsDbContext>();
                 var configuration = BuildConfiguration();
                 services.AddDbContext<WmsDbContext>((sp, options) =>

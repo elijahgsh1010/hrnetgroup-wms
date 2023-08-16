@@ -1,6 +1,6 @@
 ﻿namespace Hrnetgroup.Wms.Domain;
 
-public class Entity
+public class Entity<T>
 {
-    public virtual int Id { get; protected set; }
+    public virtual T Id { get; protected set; }
 }
