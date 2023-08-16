@@ -53,24 +53,10 @@ class Program
     private static IConfigurationRoot BuildConfiguration()
     {
         var builder = new ConfigurationBuilder()
-            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../../"))
+            // .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../../"))
+            .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false);
 
         return builder.Build();
-    }
-}
-
-public class Test
-{
-    private readonly IServiceProvider _serviceProvider;
-    public Test(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
-    public async Task Migrate()
-    {
-        var migrationContext = _serviceProvider.GetRequiredService<WmsDbContext>();
-        await migrationContext.Database.MigrateAsync();
-        Console.WriteLine("Hello world");
     }
 }

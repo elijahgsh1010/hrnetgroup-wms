@@ -18,6 +18,13 @@
     <ItemGroup>
       <ProjectReference Include="..\Hrnetgroup.Wms.EntityframeworkCore\Hrnetgroup.Wms.EntityframeworkCore.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="appsettings.json" />
+      <Content Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
     
   
 
