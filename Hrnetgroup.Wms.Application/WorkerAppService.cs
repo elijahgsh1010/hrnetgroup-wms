@@ -1,4 +1,4 @@
-﻿using Ardalis.Specification;
+﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using Hrnetgroup.Wms.Application.Contracts;
 using Hrnetgroup.Wms.Application.Contracts.Workers;
@@ -16,6 +16,8 @@ public class WorkerAppService : IWorkerAppService
     private readonly IRepository<Worker> _workerRepository;
     private readonly IRepository<Holiday> _holidayRepository;
     private readonly IRepository<Leave> _leaveRepository;
+    private const decimal HolidayMultiplier = 2;
+    private const decimal EveHolidayMultiplier = 1.5M;
 
     public WorkerAppService(IRepository<Worker> workRepository, IRepository<Holiday> holidayRepository, IRepository<Leave> leaveRepository)
     {
@@ -25,7 +27,9 @@ public class WorkerAppService : IWorkerAppService
         var mapperConfiguration = new MapperConfiguration(config =>
         {
             config.CreateMap<UpdateWorkerInput, Worker>()
+                .ForMember(sub => sub.Leaves, opt => opt.Ignore())
                 .ForMember(sub => sub.WorkingDays, opt => opt.Ignore())
+                .ForMember(sub => sub.Id, opt => opt.Ignore())
                 .AfterMap((src, dest) =>
                 {
                     foreach (var workingDay in src.WorkingDays)
@@ -43,8 +47,10 @@ public class WorkerAppService : IWorkerAppService
                     }
                 });
             config.CreateMap<Worker, WorkerDto>()
-                .ForMember(sub => sub.WorkingDays, opt => opt.Ignore())
-                ;
+                .ForMember(sub => sub.Leaves, opt => opt.Ignore())
+                .ForMember(sub => sub.WorkingDays, opt => opt.Ignore());
+
+            config.CreateMap<Worker, GetAllWorkerOutput>();
         });
         _mapper = mapperConfiguration.CreateMapper();
     }
@@ -61,10 +67,10 @@ public class WorkerAppService : IWorkerAppService
         var worker = await _workerRepository.FirstOrDefaultAsync(new WorkerByIdSpec(input.Id));
 
         if (worker == null) throw new UserFriendlyException("Worker not found");
+        
+        _mapper.Map<UpdateWorkerInput, Worker>(input, worker);
 
-        worker = _mapper.Map<UpdateWorkerInput, Worker>(input);
-
-        await _workerRepository.UpdateAsync(worker);
+        await _workerRepository.SaveChangesAsync();
     }
 
     public virtual async Task DeleteWorker(int workerId)
@@ -100,17 +106,17 @@ public class WorkerAppService : IWorkerAppService
             DateTo = input.DateTo.Date.AddDays(1).AddTicks(-1)
         });
 
-        await _workerRepository.UpdateAsync(worker);
+        await _workerRepository.SaveChangesAsync();
     }
 
     public virtual async Task DeleteLeave(DeleteLeaveInput input)
     {
         var leave = await _leaveRepository.FirstOrDefaultAsync(new LeaveByOwnerIdSpec(input.WorkerId, input.LeaveId));
 
-        await _leaveRepository.DeleteAsync(leave ?? new Leave());
+        await _leaveRepository.DeleteAsync(leave);
     }
 
-    public virtual async Task<WorkerDto> GetWorkerInformation(int workerId)
+    public virtual async Task<WorkerDto> GetWorkerInformation([Required] int workerId)
     {
         var worker = await _workerRepository.FirstOrDefaultAsync(new WorkerByIdSpec(workerId));
 
@@ -129,6 +135,8 @@ public class WorkerAppService : IWorkerAppService
         workerDto.TotalSalary = CalculateTotalSalary(worker.AmountPerHour, worker.NumOfHourPerDay, worker.TotalNumOfWorkingDays, workingDayOfWeek, holidays);
 
         workerDto.WorkingDays = workingDayOfWeek.Select(x => x.ToString()).ToArray();
+
+        workerDto.Leaves = leaves;
         
         return workerDto;
     }
@@ -219,12 +227,12 @@ public class WorkerAppService : IWorkerAppService
             total -= (hourPerDay * amountPerHour);
             if (current == actualHoliday)
             {
-                total += (amountPerHour * 2) * hourPerDay;
+                total += (amountPerHour * HolidayMultiplier) * hourPerDay;
             }
 
             if (current == holidayEve)
             {
-                total += (amountPerHour * 1.5M) * hourPerDay;
+                total += (amountPerHour * EveHolidayMultiplier) * hourPerDay;
             }
         }
         

@@ -1,9 +1,11 @@
 using System.Text;
 using Hrnetgroup.Wms.Application;
 using Hrnetgroup.Wms.Application.Contracts;
+using Hrnetgroup.Wms.Application.Contracts.Holidays;
 using Hrnetgroup.Wms.Application.Contracts.Workers;
 using Hrnetgroup.Wms.Controllers.TokenAuth;
 using Hrnetgroup.Wms.Domain;
+using Hrnetgroup.Wms.Domain.Workers;
 using Hrnetgroup.Wms.EntityframeworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -44,6 +46,7 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddDbContext(config);
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 builder.Services.AddTransient<IWorkerAppService, WorkerAppService>();
+builder.Services.AddTransient<IHolidayAppService, HolidayAppService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

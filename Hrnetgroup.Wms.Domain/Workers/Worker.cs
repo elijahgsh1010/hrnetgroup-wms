@@ -17,6 +17,7 @@ public class Worker : Entity<int>, IAggregateRoot
     }
 
     [Required]
+    [MaxLength(250)]
     public virtual string Name { get; set; }
     
     [Required]

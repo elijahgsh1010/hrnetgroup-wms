@@ -7,6 +7,7 @@ namespace Hrnetgroup.Wms.Domain.Holidays;
 public class Holiday : Entity<int>, IAggregateRoot
 {
     [Required]
+    [MaxLength(500)]
     public virtual string Name { get; set; }
     
     [Column(TypeName = "Date")]

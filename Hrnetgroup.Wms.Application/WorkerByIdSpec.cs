@@ -7,7 +7,6 @@ public class WorkerByIdSpec : Specification<Worker>
 {
     public WorkerByIdSpec(int id) =>
         Query
-            .AsNoTracking()
             .Where(x => x.Id == id)
             .Include(x => x.Leaves);
 }

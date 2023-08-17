@@ -1,9 +1,11 @@
 ﻿using Hrnetgroup.Wms.Application.Contracts.Workers;
 using Hrnetgroup.Wms.Application.Contracts.Workers.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hrnetgroup.Wms.Controllers.Workers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]/[action]")]
 public class WorkerController : ControllerBase, IWorkerAppService
@@ -14,7 +16,6 @@ public class WorkerController : ControllerBase, IWorkerAppService
     {
         _workerAppService = workerAppService;
     }
-
 
     [HttpPost(Name = "CreateWorker")]
     public Task CreateWorker(CreateWorkerInput input)
