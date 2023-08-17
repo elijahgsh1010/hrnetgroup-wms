@@ -7,4 +7,6 @@ public class WorkerDto
     public string[] WorkingDays { get; set; }
     public DateTime ExpectedEndDate { get; set; }
     public decimal TotalSalary { get; set; }
+    public DateTime[] Leaves { get; set; }
+    public virtual DateTime ContractStartDate { get; set; }
 }
