@@ -7,6 +7,7 @@ using Hrnetgroup.Wms.Domain;
 using Hrnetgroup.Wms.Domain.Holidays;
 using Hrnetgroup.Wms.Domain.Leaves;
 using Hrnetgroup.Wms.Domain.Workers;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hrnetgroup.Wms.Application;
 

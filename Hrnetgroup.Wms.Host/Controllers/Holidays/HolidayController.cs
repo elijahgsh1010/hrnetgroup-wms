@@ -7,7 +7,7 @@ namespace Hrnetgroup.Wms.Controllers.Holidays;
 [Authorize]
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class HolidayController : ControllerBase, IHolidayAppService
+public class HolidayController : ControllerBase
 {
     private readonly IHolidayAppService _holidayAppService;
     

@@ -1,10 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace Hrnetgroup.Wms.Controllers.TokenAuth;
 
+[AllowAnonymous]
 [ApiController]
 [Route("[controller]")]
 public class SimpleTokenAuthController : ControllerBase

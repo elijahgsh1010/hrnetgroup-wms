@@ -1,15 +1,11 @@
-using System.Text;
+using Hrnetgroup.Wms;
 using Hrnetgroup.Wms.Application;
 using Hrnetgroup.Wms.Application.Contracts;
 using Hrnetgroup.Wms.Application.Contracts.Holidays;
 using Hrnetgroup.Wms.Application.Contracts.Workers;
-using Hrnetgroup.Wms.Controllers.TokenAuth;
-using Hrnetgroup.Wms.Domain;
-using Hrnetgroup.Wms.Domain.Workers;
+using Hrnetgroup.Wms.Domain.ApplicationUsers;
 using Hrnetgroup.Wms.EntityframeworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Serilog.Events;
 
@@ -25,64 +21,22 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 builder.Logging.AddSerilog(Log.Logger);
 
-builder.Services.AddAuthentication(x =>
-{
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
-{
-    x.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidIssuer = config["JwtSettings:Issuer"],
-        ValidAudience = config["JwtSettings:Audience"],
-        ValidateIssuer = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:SecurityKey"]))
-    };
-});
+builder.Services.AddAuthAndSwagger(config);
+
+// builder.Services.AddTransient<IWorkerAppService, WorkerAppService>();
+// builder.Services.AddTransient<IHolidayAppService, HolidayAppService>();
 
 builder.Services.AddDbContext(config);
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-builder.Services.AddTransient<IWorkerAppService, WorkerAppService>();
-builder.Services.AddTransient<IHolidayAppService, HolidayAppService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Simple JWT Authorization header using the Bearer token scheme."
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
-    { 
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
-});
+builder.Services.AddServices();
 
-builder.Services.Configure<TokenAuthConfiguration>(o =>
-{
-    o.SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:SecurityKey"] ?? ""));
-    o.Issuer = config["JwtSettings:Issuer"] ?? "";
-    o.Audience = config["JwtSettings:Audience"] ?? "";
-    o.SigningCredentials = new SigningCredentials(o.SecurityKey, SecurityAlgorithms.HmacSha256);
-});
+
+// Configure Identity
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<WmsDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 

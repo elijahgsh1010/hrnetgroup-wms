@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hrnetgroup.Wms.Controllers.Workers;
 
-[Authorize]
 [ApiController]
 [Route("api/[controller]/[action]")]
 public class WorkerController : ControllerBase, IWorkerAppService

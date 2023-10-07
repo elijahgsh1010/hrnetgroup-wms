@@ -2,7 +2,7 @@
 
 namespace Hrnetgroup.Wms.Application.Contracts.Workers.Dtos;
 
-public class CreateWorkerInput
+public class CreateWorkerInput : IValidatableObject
 {
     [Required]
     public string Name { get; set; }
@@ -16,6 +16,16 @@ public class CreateWorkerInput
     public DayOfWeek[] WorkingDays { get; set; }
     [Required]
     public int NumOfHourPerDay { get; set; } // assume work one full hour and assume hour is the same for all the days for simplicity
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (string.IsNullOrEmpty(Name))
+        {
+            yield return new ValidationResult(
+                $"{nameof(CreateWorkerInput)}.{nameof(Name)} is not configured",
+                new[] { nameof(Name) });
+        }
+    }
 }
 
 public class UpdateWorkerInput : CreateWorkerInput

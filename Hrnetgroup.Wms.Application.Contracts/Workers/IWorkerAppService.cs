@@ -2,7 +2,7 @@
 
 namespace Hrnetgroup.Wms.Application.Contracts.Workers;
 
-public interface IWorkerAppService
+public interface IWorkerAppService : ITransientService
 {
     Task CreateWorker(CreateWorkerInput input);
     Task UpdateWorker(UpdateWorkerInput input);

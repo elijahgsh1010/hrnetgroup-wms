@@ -9,10 +9,13 @@
     <ItemGroup>
       <PackageReference Include="Ardalis.Specification" Version="7.0.0" />
       <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Hrnetgroup.Wms.Application.Contracts\Hrnetgroup.Wms.Application.Contracts.csproj" />
     </ItemGroup>
+
 
 </Project>
