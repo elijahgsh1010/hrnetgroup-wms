@@ -11,4 +11,5 @@ public interface IWorkerAppService : ITransientService
     Task<WorkerDto> GetWorkerInformation(int workerId);
     Task ApplyLeave(ApplyLeaveInput input);
     Task DeleteLeave(DeleteLeaveInput input);
+    Task BulkIndexWorker();
 }

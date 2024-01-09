@@ -7,7 +7,7 @@ namespace Hrnetgroup.Wms.Controllers.Workers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class WorkerController : ControllerBase, IWorkerAppService
+public class WorkerController : ControllerBase
 {
     private readonly IWorkerAppService _workerAppService;
     
@@ -56,5 +56,12 @@ public class WorkerController : ControllerBase, IWorkerAppService
     public Task DeleteLeave(DeleteLeaveInput input)
     {
         return _workerAppService.DeleteLeave(input);
+    }
+    
+    [HttpGet]
+    [Route("bulk-index")]
+    public Task BulkIndexWorker()
+    {
+        return _workerAppService.BulkIndexWorker();
     }
 }

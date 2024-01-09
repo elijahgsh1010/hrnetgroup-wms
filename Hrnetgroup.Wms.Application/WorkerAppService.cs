@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using Hrnetgroup.Wms.Application.Contracts;
 using Hrnetgroup.Wms.Application.Contracts.Workers;
 using Hrnetgroup.Wms.Application.Contracts.Workers.Dtos;
 using Hrnetgroup.Wms.Domain;
@@ -8,23 +7,31 @@ using Hrnetgroup.Wms.Domain.Holidays;
 using Hrnetgroup.Wms.Domain.Leaves;
 using Hrnetgroup.Wms.Domain.Workers;
 using Microsoft.AspNetCore.Identity;
+using Nest;
+using Leave = Hrnetgroup.Wms.Domain.Leaves.Leave;
 
 namespace Hrnetgroup.Wms.Application;
 
 public class WorkerAppService : IWorkerAppService
 {
     private readonly IMapper _mapper;
-    private readonly IRepository<Worker> _workerRepository;
-    private readonly IRepository<Holiday> _holidayRepository;
-    private readonly IRepository<Leave> _leaveRepository;
+    private readonly Contracts.IRepository<Worker> _workerRepository;
+    private readonly Contracts.IRepository<Holiday> _holidayRepository;
+    private readonly Contracts.IRepository<Leave> _leaveRepository;
     private const decimal HolidayMultiplier = 2;
     private const decimal EveHolidayMultiplier = 1.5M;
 
-    public WorkerAppService(IRepository<Worker> workRepository, IRepository<Holiday> holidayRepository, IRepository<Leave> leaveRepository)
+    private readonly IElasticManager _elasticManager;
+
+    public WorkerAppService(Contracts.IRepository<Worker> workRepository
+        , Contracts.IRepository<Holiday> holidayRepository
+        , Contracts.IRepository<Leave> leaveRepository
+        , IElasticManager elasticManager)
     {
         _workerRepository = workRepository;
         _holidayRepository = holidayRepository;
         _leaveRepository = leaveRepository;
+        _elasticManager = elasticManager;
         var mapperConfiguration = new MapperConfiguration(config =>
         {
             config.CreateMap<UpdateWorkerInput, Worker>()
@@ -52,6 +59,7 @@ public class WorkerAppService : IWorkerAppService
                 .ForMember(sub => sub.WorkingDays, opt => opt.Ignore());
 
             config.CreateMap<Worker, GetAllWorkerOutput>();
+            config.CreateMap<Worker, ElasticWorker>().ReverseMap();
         });
         _mapper = mapperConfiguration.CreateMapper();
     }
@@ -245,5 +253,16 @@ public class WorkerAppService : IWorkerAppService
         var holidays = await _holidayRepository.ListAsync(new HolidayByRangeSpec(start, end));
 
         return holidays.Select(x => x.Date).ToArray();
+    }
+
+    public virtual async Task BulkIndexWorker()
+    {
+        var workers = await _workerRepository.ListAsync();
+
+        await _elasticManager.BulkIndex(workers);
+    }
+
+    public virtual async Task SearchWorker(string name)
+    { 
     }
 }
