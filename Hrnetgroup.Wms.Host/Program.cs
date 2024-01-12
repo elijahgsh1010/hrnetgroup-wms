@@ -37,9 +37,9 @@ var elasticClient = new ElasticClient(new ConnectionSettings(new Uri("http://127
     .CertificateFingerprint("27dd077b79abbfbdd29b43fe36077f25541b92ff59ee0557d04d31009c145a3f")
     .ServerCertificateValidationCallback((o, certificate, chain, errors) => true)
     .ServerCertificateValidationCallback(CertificateValidations.AllowAll)
-    .DefaultMappingFor<Worker>(i => i.IndexName("workers"))
     .EnableApiVersioningHeader()
-    .DefaultIndex("workers"));
+    .DefaultMappingFor<Worker>(i => i.IndexName("workers-current-2"))
+    .DefaultIndex("workers-current"));
 
 
 builder.Services.AddSingleton(elasticClient);

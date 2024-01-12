@@ -10,4 +10,10 @@
       <PackageReference Include="Ardalis.Specification" Version="7.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Hrnetgroup.Wms.Domain">
+        <HintPath>..\Hrnetgroup.Wms.DbMigrator\bin\Debug\net7.0\Hrnetgroup.Wms.Domain.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

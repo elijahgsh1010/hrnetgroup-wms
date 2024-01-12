@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Ardalis.Specification;
 using AutoMapper;
 using Hrnetgroup.Wms.Application.Contracts.Workers;
 using Hrnetgroup.Wms.Application.Contracts.Workers.Dtos;
@@ -11,6 +12,14 @@ using Nest;
 using Leave = Hrnetgroup.Wms.Domain.Leaves.Leave;
 
 namespace Hrnetgroup.Wms.Application;
+
+public static class StringExtensions
+{
+    public static string JoinAsString(this IEnumerable<string> source, string separator)
+    {
+        return string.Join(separator, source);
+    }
+}
 
 public class WorkerAppService : IWorkerAppService
 {
@@ -55,11 +64,23 @@ public class WorkerAppService : IWorkerAppService
                     }
                 });
             config.CreateMap<Worker, WorkerDto>()
+                .ForMember(sub => sub.Tags, opt => opt.Ignore())
                 .ForMember(sub => sub.Leaves, opt => opt.Ignore())
-                .ForMember(sub => sub.WorkingDays, opt => opt.Ignore());
+                .ForMember(sub => sub.WorkingDays, opt => opt.Ignore())
+                .AfterMap((src, dest) =>
+                { 
+                    dest.Tags = src.Tags.Split(',').ToList();
+                });
 
             config.CreateMap<Worker, GetAllWorkerOutput>();
-            config.CreateMap<Worker, ElasticWorker>().ReverseMap();
+            config.CreateMap<Worker, ElasticWorker>()
+                .ForMember(sub => sub.Tags, opt => opt.Ignore())
+                .ForMember(sub => sub.Leaves, opt => opt.Ignore())
+                .ForMember(sub => sub.WorkingDays, opt => opt.Ignore())
+                .AfterMap((src, dest) =>
+                {
+                    dest.Tags = src.Tags.Split(',').ToList();
+                });
         });
         _mapper = mapperConfiguration.CreateMapper();
     }
@@ -78,6 +99,17 @@ public class WorkerAppService : IWorkerAppService
         if (worker == null) throw new UserFriendlyException("Worker not found");
         
         _mapper.Map<UpdateWorkerInput, Worker>(input, worker);
+
+        await _workerRepository.SaveChangesAsync();
+    }
+    
+    public virtual async Task AddTags(int id, List<string> tags)
+    {
+        var worker = await _workerRepository.FirstOrDefaultAsync(new WorkerByIdSpec(id));
+
+        if (worker == null) throw new UserFriendlyException("Worker not found");
+
+        worker.Tags = tags.JoinAsString(",");
 
         await _workerRepository.SaveChangesAsync();
     }
@@ -259,10 +291,15 @@ public class WorkerAppService : IWorkerAppService
     {
         var workers = await _workerRepository.ListAsync();
 
-        await _elasticManager.BulkIndex(workers);
+        var result = _mapper.Map<List<Worker>, List<ElasticWorker>>(workers);
+        
+        await _elasticManager.BulkIndex(result);
     }
 
-    public virtual async Task SearchWorker(string name)
-    { 
+    public virtual async Task<List<ElasticWorker>> SearchWorker(string name)
+    {
+        var result = await _elasticManager.Search();
+
+        return result ?? new List<ElasticWorker>();
     }
 }

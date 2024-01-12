@@ -1,4 +1,5 @@
 ﻿using Hrnetgroup.Wms.Application.Contracts.Workers.Dtos;
+using Hrnetgroup.Wms.Domain.Workers;
 
 namespace Hrnetgroup.Wms.Application.Contracts.Workers;
 
@@ -12,4 +13,6 @@ public interface IWorkerAppService : ITransientService
     Task ApplyLeave(ApplyLeaveInput input);
     Task DeleteLeave(DeleteLeaveInput input);
     Task BulkIndexWorker();
+    Task AddTags(int id, List<string> tags);
+    Task<List<ElasticWorker>> SearchWorker(string name);
 }

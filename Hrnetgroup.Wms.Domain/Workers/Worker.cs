@@ -36,4 +36,6 @@ public class Worker : Entity<int>, IAggregateRoot
     public virtual int NumOfHourPerDay { get; set; } // assume work one full hour and assume hour is the same for all the days for simplicity
     
     public virtual ICollection<Leave> Leaves { get; set; }
+    
+    public string Tags { get; set; }
 }

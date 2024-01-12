@@ -9,4 +9,5 @@ public class WorkerDto
     public decimal TotalSalary { get; set; }
     public DateTime[] Leaves { get; set; }
     public virtual DateTime ContractStartDate { get; set; }
+    public List<string> Tags { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using Hrnetgroup.Wms.Application.Contracts.Workers;
 using Hrnetgroup.Wms.Application.Contracts.Workers.Dtos;
+using Hrnetgroup.Wms.Domain.Workers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,5 +64,19 @@ public class WorkerController : ControllerBase
     public Task BulkIndexWorker()
     {
         return _workerAppService.BulkIndexWorker();
+    }
+    
+    [HttpPost]
+    [Route("add-tags")]
+    public Task AddTags(int id, List<string> tags)
+    {
+        return _workerAppService.AddTags(id, tags);
+    }
+    
+    [HttpGet]
+    [Route("search-worker")]
+    public Task<List<ElasticWorker>> SearchWorkers(string name)
+    {
+        return _workerAppService.SearchWorker(name);
     }
 }
